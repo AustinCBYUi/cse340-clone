@@ -4,3 +4,149 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  max-width: 1000px;
+  background-color: rgb(255, 255, 255);
+  font-family: "Roberto", "sans-serif";
+  font-weight: 130;
+  margin: auto;
+}
+
+header, header a {
+  background-color: #222b31;
+  color: white;
+  text-decoration: none;
+}
+header .siteName {
+  font-size: 28px;
+  padding: 10px;
+}
+header #tools {
+  margin-left: 90%;
+}
+header a:hover {
+  color: green;
+  text-decoration: underline;
+}
+nav {
+  background-color: #222b31;
+  margin: 0 auto;
+  padding: 15px 15px;
+  color: white;
+}
+nav ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 10rem 10rem 10rem 10rem 10rem;
+  justify-content: space-between;
+}
+
+.hero {
+  margin: 0 0;
+}
+.center {
+  display: block;
+  margin: 0 auto;
+}
+.text {
+  position: relative;
+  max-width: 300px;
+  background-color: #000000;
+  color: white;
+  left: 30px;
+  top: 75px;
+  transform: translate(0%, -200%);
+  font-size: 20px;
+  text-align: center;
+  opacity: 80%;
+  padding: 5px;
+}
+
+#buy {
+  background-color: #1b2a2c;
+  color: white;
+  cursor: pointer;
+  border-style: none;
+}
+#buy:hover {
+  background-color: #61ebb1;
+}
+
+/* Main Section, it splits. */
+.mainSec {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+/* Upgrades Side */
+.left {
+  grid-column: 1/2;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.box {
+  text-align: center;
+}
+.upgrade-image {
+  background-color:#304553;
+  max-width: 135px;
+  padding: 5px;
+  margin-left: 55px;
+}
+.upgrade-image img {
+  max-height: 65px;
+}
+/* End of Upgrades Side */
+
+/* Reviews Side */
+.right {
+  grid-column: 2/3;
+  font-size: 18px;
+}
+.rev {
+  padding: 5px;
+}
+
+/* End of Reviews Side */
+
+footer {
+  color: white;
+  background-color:#222b31;
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    max-width: 100%;
+    min-width: 100%;
+    margin: auto;
+    padding: 5px;
+  }
+  nav ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  #tools a {
+    position: relative;
+    right: 50px;
+    bottom: 5px;
+  }
+  .hero {
+    display: inline;
+    margin: 0px auto;
+    padding: 10px;
+  }
+  .hero .center {
+    max-width: 95%;
+  }
+  .hero .text {
+    max-width: 150px;
+    top: 220px;
+  }
+  .mainSec {
+    display: block;
+  }
+}
