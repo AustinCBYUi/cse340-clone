@@ -20,4 +20,11 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+/* ***********************
+ * Middleware for handling errors
+ * wrap other functions in this for general
+ * error handling.
+ *************************/
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util

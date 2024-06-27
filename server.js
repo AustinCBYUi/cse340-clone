@@ -11,6 +11,7 @@ const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
+const utilities = require("./utilities/")
 
 /* ***********************
  * View Engine and Templates
@@ -24,7 +25,29 @@ app.set("layout", "./layouts/layout") //Not at views root.
  *************************/
 app.use(static)
 // Index Route
-app.get("/", baseController.buildHome)
+app.get("/", utilities.handleErrors(baseController.buildHome))
+//Catch all error routes
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, it appears while searching for vehicles, you have wondered into a different parking lot!'})
+})
+
+/* ***********************
+ * Express error handling
+ * place after all other middleware
+ *************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  //This keeps people from seeing internally a variable name of the server.
+  //This is good practice, always use generic messages for errors.
+  if (err.status == 404) { message = err.message} else {message = 'Oh no! There was an issue routing your destination..'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
+
 
 /* ***********************
  * Local Server Information
