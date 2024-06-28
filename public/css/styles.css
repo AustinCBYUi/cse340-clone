@@ -30,16 +30,36 @@ header a:hover {
   text-decoration: underline;
 }
 nav {
-  background-color: #222b31;
+  background-color: #48d59b;
   margin: 0 auto;
-  padding: 15px 15px;
+  padding: 1px;
   color: white;
 }
 nav ul {
   list-style-type: none;
+  /* background-color: #61ebb1; */
   display: grid;
-  grid-template-columns: 10rem 10rem 10rem 10rem 10rem;
-  justify-content: space-between;
+  grid-template-columns: 10rem 10rem 10rem 10rem 10rem 10rem;
+  justify-content: center;
+}
+nav .navel a {
+  text-decoration: none;
+  background-color: #61ebb1;
+  color: rgb(29, 29, 29);
+  padding: 15px;
+}
+.navel a:hover {
+  background-color: #7448ed;
+  color: white;
+}
+.navhome a {
+  background-color: #7448ed;
+  color: white;
+  padding: 15px;
+  text-decoration: none;
+}
+.navhome a:hover {
+  background-color: #171717;
 }
 
 .hero {
