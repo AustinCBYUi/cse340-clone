@@ -20,6 +20,43 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+Util.getInv = async function (req, res, type) {
+    let data = await invModel.getItems(type)
+    let list = '<ul class="inv-grid">'
+    data.rows.forEach((row) => {
+        list += '<li class="grid-item-inv">'
+        list += '<a id="hoverlink" href="/inv/' + row.inv_id + '">'
+        list += '<h2>' + row.inv_year + ' ' + row.inv_make + ' ' + row.inv_model + '</h2>'
+        list += "</a>"
+        list += '<a href="/inv/' + row.inv_id + '">'
+        list += '<img src="' + row.inv_image + '" alt="Image of ' + row.inv_make + ' ' + row.inv_model + '"/>'
+        list += "</a>"
+        list += "</li>"
+    })
+    list += "</ul>"
+    return list
+}
+
+Util.getItem = async function (req, res, id) {
+    let data = await invModel.getDetails(id)
+    let list = '<ul>'
+    data.rows.forEach((row) => {
+        list += '<li class="item-display-grid">'
+        list += '<img class="inv-right" src="' + row.inv_image + '" alt="Image of ' + row.inv_make + ' ' + row.inv_model + '"/>'
+        list += '<h2 class="inv-right">' + row.inv_year + ' ' + row.inv_make + ' ' + row.inv_model + '</h2>'
+        list += '<p class="inv-right"><b>Description:</b> ' + row.inv_description + '</p>'
+        list += '<p class="inv-right"><b>Color:</b> ' + row.inv_color + '</p>'
+        list += '<p class="inv-right"><b>Mileage:</b> ' + row.inv_miles + '</p>'
+        list += '<p class="inv-right"><b>$Price:</b> ' + row.inv_price + '</p>'
+        list += '<a class="inv-right" href="/contactus">'
+        list += '<p class="inv-right" id="buy-car">Buy Now</p>'
+        list += "</a>"
+        list += "</li>"
+    })
+    list += "</ul>"
+    return list
+}
+
 /* ***********************
  * Middleware for handling errors
  * wrap other functions in this for general

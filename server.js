@@ -11,6 +11,7 @@ const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
+const invController = require("./controllers/inventoryController")
 const utilities = require("./utilities/")
 
 /* ***********************
@@ -26,6 +27,12 @@ app.set("layout", "./layouts/layout") //Not at views root.
 app.use(static)
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/inv/type/:type", function(req, res) {
+  utilities.handleErrors(invController.buildInv(req, res, req.params["type"]))
+})
+app.get("/inv/:id", function(req, res) {
+  utilities.handleErrors(invController.buildItem(req, res, req.params["id"]))
+})
 //Catch all error routes
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, it appears while searching for vehicles, you have wondered into a different parking lot!'})

@@ -62,6 +62,63 @@ nav .navel a {
   background-color: #171717;
 }
 
+/* Section for dynamic inventory grids */
+.inv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.grid-item-inv {
+  background-color: #61ebb1;
+  padding: 15px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px;
+  list-style-type: none;
+  width: 90%;
+}
+.grid-item-inv img {
+  width: 250px;
+}
+.grid-item-inv a {
+  text-decoration: none;
+  color: rgb(23, 23, 23);
+}
+#hoverlink:hover {
+  color: #7448ed;
+}
+.item-display-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+}
+.item-display-grid img {
+  grid-column: 1/2;
+  width: 90%;
+}
+.item-display-grid h2 {
+  text-align: center;
+  font-size: 30px;
+  justify-content: center;
+  align-content: center;
+}
+.inv-right {
+  grid-column: 2/4;
+}
+.item-display-grid a {
+  text-decoration: none;
+}
+#buy-car {
+  background-color: #1b2a2c;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+#buy-car:hover {
+  background-color: #7448ed;
+}
 .hero {
   margin: 0 0;
 }
@@ -147,12 +204,36 @@ footer {
   }
   nav ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin-right: 10%;
   }
   #tools a {
     position: relative;
     right: 50px;
     bottom: 5px;
+  }
+  .inv-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    padding: 10px;
+  }
+  .item-display-grid {
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+  }
+  .item-display-grid img {
+    width: auto;
+    max-width: 90%;
+  }
+  #buy-car {
+    background-color: #1b2a2c;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    width: 100px;
+    margin: 0;
   }
   .hero {
     display: inline;
