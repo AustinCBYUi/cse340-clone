@@ -1,6 +1,9 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 
+/* ***********************
+ * Gets the navigation bars
+*************************/
 Util.getNav = async function (req, res, next) {
     let data = await invModel.getClassifications()
     let list = "<ul>"
@@ -20,6 +23,9 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+/*
+ * Populates the view with data from a specific category of vehicles.
+*/
 Util.getInv = async function (req, res, type) {
     let data = await invModel.getItems(type)
     let list = '<ul class="inv-grid">'
@@ -37,6 +43,9 @@ Util.getInv = async function (req, res, type) {
     return list
 }
 
+/*
+ * Populates the view with data from an individual item by id.
+*/
 Util.getItem = async function (req, res, id) {
     let data = await invModel.getDetails(id)
     let list = '<ul>'

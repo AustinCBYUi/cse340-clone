@@ -37,6 +37,9 @@ app.get("/inv/:id", function(req, res) {
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, it appears while searching for vehicles, you have wondered into a different parking lot!'})
 })
+app.use(async (req, res, next) => {
+  next({status: 500, message: 'Sorry, it appears there was an issue with the server, please try again later.'})
+})
 
 /* ***********************
  * Express error handling
