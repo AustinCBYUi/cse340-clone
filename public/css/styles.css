@@ -207,7 +207,14 @@ nav .navel a {
 .error-code {
   font-size: 50px;
   color: red;
-
+}
+.error-fivehundred {
+  font-size: 18px;
+  text-decoration: none;
+  color: white;
+}
+.error-fivehundred:hover {
+  color: #7448ed;
 }
 .error-button:hover {
   background-color: #7448ed;
