@@ -39,7 +39,7 @@ nav ul {
   list-style-type: none;
   /* background-color: #61ebb1; */
   display: grid;
-  grid-template-columns: 10rem 10rem 10rem 10rem 10rem 10rem;
+  grid-template-columns: repeat(6, 1fr);
   justify-content: center;
 }
 nav .navel a {
@@ -120,24 +120,33 @@ nav .navel a {
   background-color: #7448ed;
 }
 .hero {
-  margin: 0 0;
+  margin: 0 auto;
+  min-height: 300px;
+  height: auto;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 .center {
   display: block;
   margin: 0 auto;
 }
 .text {
-  position: relative;
+  position: absolute;
   max-width: 300px;
   background-color: #000000;
   color: white;
-  left: 30px;
-  top: 75px;
-  transform: translate(0%, -200%);
+  left: 30%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-size: 20px;
   text-align: center;
   opacity: 80%;
   padding: 5px;
+  box-sizing: border-box;
 }
 
 #buy {
@@ -238,8 +247,25 @@ footer {
   }
   nav ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    margin-right: 10%;
+    grid-template-columns: repeat(6, 1fr);
+    margin-right: 0;
+    padding: 0 10px;
+    gap: 3px;
+  }
+  nav .navel a {
+    padding: 10px;
+  }
+  .navhome a {
+    padding: 10px;
+  }
+  nav {
+    width: 100%;
+    overflow: hidden;
+  }
+  .text {
+    left: 80%;
+    top: 50%;
+    transform: translate(15%, -90%);
   }
   #tools a {
     position: relative;
@@ -255,19 +281,29 @@ footer {
   .item-display-grid {
     display: flex;
     flex-wrap: wrap;
-    grid-gap: 10px;
+    gap: 10px;
+    text-align: center;
   }
   .item-display-grid img {
     width: auto;
     max-width: 90%;
   }
+  .inv-detail-view {
+    margin: 0 auto;
+    border: none;
+    padding: 0;
+  }
+  /* This is in the individual pages for inventory items. */
   #buy-car {
     background-color: #1b2a2c;
     text-align: center;
     color: white;
     cursor: pointer;
-    width: 100px;
-    margin: 0;
+    width: 200px;
+    height: 20px;
+  }
+  .item-display-grid a {
+    margin: 0 auto;
   }
   .hero {
     display: inline;
