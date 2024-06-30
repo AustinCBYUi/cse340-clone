@@ -34,7 +34,7 @@ Util.getInv = async function (req, res, type) {
         list += '<a id="hoverlink" href="/inv/' + row.inv_id + '">'
         list += '<h2>' + row.inv_year + ' ' + row.inv_make + ' ' + row.inv_model + '</h2>'
         list += "</a>"
-        list += '<a href="/inv/' + row.inv_id + '">'
+        list += '<a id="hoverlink" href="/inv/' + row.inv_id + '">'
         list += '<img src="' + row.inv_image + '" alt="Image of ' + row.inv_make + ' ' + row.inv_model + '"/>'
         list += "</a>"
         list += "</li>"
