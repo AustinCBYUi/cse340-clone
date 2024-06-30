@@ -38,7 +38,7 @@ app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, it appears while searching for vehicles, you have wondered into a different parking lot!'})
 })
 app.use(async (req, res, next) => {
-  next({status: 500, message: 'Sorry, it appears there was an issue with the server, please try again later.'})
+  next({status: 500, message: 'This is an intentional error'})
 })
 
 /* ***********************
@@ -50,7 +50,7 @@ app.use(async (err, req, res, next) => {
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   //This keeps people from seeing internally a variable name of the server.
   //This is good practice, always use generic messages for errors.
-  if (err.status == 404) { message = err.message} else {message = 'Oh no! There was an issue routing your destination..'}
+  if (err.status == 404 || err.status == 500) { message = err.message} else {message = 'Oh no! There was an issue routing your destination..'}
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,

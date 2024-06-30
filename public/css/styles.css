@@ -187,6 +187,33 @@ nav .navel a {
   padding: 5px;
 }
 
+/* Error page styling */
+.error-page {
+  text-align: center;
+}
+.error-page a {
+  text-decoration: none;
+}
+.error-button {
+  background-color: #1b2a2c;
+  color: white;
+  cursor: pointer;
+  border-style: none;
+  padding: 10px;
+  margin: 10px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.error-code {
+  font-size: 50px;
+  color: red;
+
+}
+.error-button:hover {
+  background-color: #7448ed;
+
+}
+
 /* End of Reviews Side */
 
 footer {
