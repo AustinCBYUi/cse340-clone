@@ -1,4 +1,5 @@
 const utilities = require("../utilities/")
+const invModel = require("../models/inventory-model")
 const invController = {}
 
 /*
@@ -7,7 +8,8 @@ const invController = {}
 */
 invController.buildInv = async function(req, res, type) {
     const nav = await utilities.getNav()
-    const body = await utilities.getInv(req, res, type)
+    let data = await invModel.getItems(type)
+    const body = await utilities.getInv(req, res, data)
     res.render("index", { title: "Inventory", nav: nav, body: body })
 }
 
@@ -17,7 +19,8 @@ invController.buildInv = async function(req, res, type) {
 */
 invController.buildItem = async function(req, res, id) {
     const nav = await utilities.getNav()
-    const body = await utilities.getItem(req, res, id)
+    const data = await invModel.getDetails(id);
+    const body = await utilities.getItem(req, res, data)
     res.render("index", { title: "Item", nav: nav, body: body })
 }
 

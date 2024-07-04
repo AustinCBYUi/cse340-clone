@@ -26,8 +26,7 @@ Util.getNav = async function (req, res, next) {
 /*
  * Populates the view with data from a specific category of vehicles.
 */
-Util.getInv = async function (req, res, type) {
-    let data = await invModel.getItems(type)
+Util.getInv = async function (req, res, data) {
     let list = '<ul class="inv-grid">'
     data.rows.forEach((row) => {
         list += '<li class="grid-item-inv">'
@@ -46,8 +45,7 @@ Util.getInv = async function (req, res, type) {
 /*
  * Populates the view with data from an individual item by id.
 */
-Util.getItem = async function (req, res, id) {
-    let data = await invModel.getDetails(id)
+Util.getItem = async function (req, res, data) {
     let list = '<ul class="inv-detail-view">'
     data.rows.forEach((row) => {
         list += '<li class="item-display-grid">'
