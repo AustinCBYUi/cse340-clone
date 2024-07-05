@@ -6,15 +6,15 @@
  * Require Statements
  *************************/
 const express = require("express")
+const expressLayouts = require("express-ejs-layouts")
+const session = require("express-session")
+const bodyParser = require("body-parser")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoutes")
-const invController = require("./controllers/inventoryController")
 const utilities = require("./utilities/")
-const session = require("express-session")
 const pool = require("./database/")
 const accountRoute = require("./routes/accountRoute")
 
@@ -32,13 +32,17 @@ app.use(session({
   saveUninitialized: true,
   name: "sessionId",
 }))
-
 //express messages middleware
 app.use(require("connect-flash")())
 app.use(function(req, res, next) {
   res.locals.messages = require("express-messages")(req, res)
   next()
 })
+//Body Parser middleware
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -46,14 +50,17 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") //Not at views root.
 
+
 /* ***********************
  * Routes
  *************************/
-app.use("/account", utilities.handleErrors(accountRoute))
-app.use("/inv", utilities.handleErrors(inventoryRoute))
-app.use(static)
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
+// Account Route
+app.use("/account", utilities.handleErrors(accountRoute))
+//Inventory Route
+app.use("/inv", utilities.handleErrors(inventoryRoute))
+app.use(static)
 //Catch all error routes
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, it appears while searching for vehicles, you have wondered into a different parking lot!'})
@@ -61,6 +68,7 @@ app.use(async (req, res, next) => {
 app.use(async (req, res, next) => {
   next({status: 500, message: 'This is an intentional error'})
 })
+
 
 /* ***********************
  * Express error handling
