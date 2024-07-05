@@ -8,7 +8,7 @@
 body {
   max-width: 1000px;
   background-color: rgb(255, 255, 255);
-  font-family: "Roberto", "sans-serif";
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 130;
   margin: auto;
 }
@@ -231,6 +231,105 @@ nav .navel a {
 }
 
 /* End of Reviews Side */
+
+/* Flash message */
+.notice-bad {
+  background-color: rgba(223, 52, 52, 0.804);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+.notice-good {
+  background-color: rgba(123, 242, 123, 0.559);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  margin: 0 auto;
+  list-style-type: none;
+}
+
+/* forms */
+.page-title {
+  text-align: center;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.login {
+  background-color: #222b31;
+  margin: 0 auto;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  width: 300px;
+}
+.login input {
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 5px;
+  width: 90%;
+  font-weight: 500;
+}
+.login button {
+  background-color: #7448ed;
+  color: white;
+  cursor: pointer;
+  border-style: none;
+  padding: 10px;
+  margin: 10px;
+  max-width: 300px;
+}
+.login button:hover {
+  background-color: #4420a8;
+}
+.form-control {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+  margin: 0 auto;
+}
+.register a {
+  color: #48d59b;
+  text-decoration: none;
+}
+.register a:hover {
+  color: #7448ed;
+}
+
+.register-form {
+  background-color: #222b31;
+  margin: 0 auto;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  width: 300px;
+}
+.register-form input {
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 5px;
+  width: 90%;
+  font-weight: 500;
+}
+.register-form button {
+  background-color: #7448ed;
+  color: white;
+  cursor: pointer;
+  border-style: none;
+  padding: 10px;
+  margin: 10px;
+  max-width: 300px;
+}
+.register-form button:hover {
+  background-color: #4420a8;
+}
+
 
 footer {
   color: white;

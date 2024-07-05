@@ -1,0 +1,25 @@
+<% messages() %>
+<h1 class="page-title"><%- title %></h1>
+<form action="/account/register" method="post" class="register-form">
+    <div class="form-group">
+        <label for="account_firstname">First Name</label>
+        <input type="text" class="form-control" id="account_firstname" name="account_firstname" required placeholder="First Name">
+    </div>
+    <div class="form-group">
+        <label for="account_lastname">Last Name</label>
+        <input type="text" class="form-control" id="account_lastname" name="account_lastname" required placeholder="Last Name">
+    </div>
+    <div class="form-group">
+        <label for="account_email">Email</label>
+        <input type="email" class="form-control" id="account_email" name="account_email" required placeholder="Email">
+    </div>
+    <!-- 12 chars in length
+        contains at least 1 capital letter
+        contain at least 1 number
+        contain at least 1 special character
+        -->
+    <div class="form-group">
+        <label for="account_password">Password</label>
+        <input type="password" class="form-control" id="account_password" name="account_password" required placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
