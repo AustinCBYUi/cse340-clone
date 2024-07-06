@@ -329,6 +329,10 @@ nav .navel a {
 .register-form button:hover {
   background-color: #4420a8;
 }
+.pwspecs {
+  text-align: left;
+  margin-left: 15%;
+}
 
 
 footer {

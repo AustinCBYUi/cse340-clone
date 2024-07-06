@@ -9,9 +9,18 @@ async function buildLogin(req, res, next) {
     res.render("account/login", {
         title: "Login",
         nav,
+        errors: null,
     })
 }
 
+async function loginTester(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+        title: "Logged in",
+        nav,
+        errors: null,
+    })
+}
 
 /* ***********************
 * Deliver register view
@@ -21,6 +30,7 @@ async function buildRegister(req, res, next) {
     res.render("account/register", {
         title: "Register",
         nav,
+        errors: null,
     })
 }
 
@@ -58,4 +68,4 @@ async function registerUser(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, registerUser }
+module.exports = { buildLogin, buildRegister, registerUser, loginTester }

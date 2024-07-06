@@ -12,4 +12,15 @@ async function insertUserData(account_firstname, account_lastname, account_email
     }
 }
 
-module.exports = { insertUserData }
+
+async function checkExistingEmail(account_email) {
+    try {
+        const sql = "SELECT * FROM account WHERE account_email = $1"
+        const email = await pool.query(sql, [account_email])
+        return email.rowCount
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { insertUserData, checkExistingEmail }
