@@ -398,18 +398,6 @@ input:valid, select:valid, textarea:valid {
 .add_class_form input[type="text"] {
   color: white;
 }
-.add_class_form button {
-  background-color: #7448ed;
-  color: white;
-  cursor: pointer;
-  border-style: none;
-  padding: 10px;
-  margin: 10px;
-  max-width: 300px;
-}
-.add_class_form button:hover {
-  background-color: #4420a8;
-}
 
 /* Add Inventory Page */
 .add_inventory_form {
@@ -494,12 +482,22 @@ footer {
   nav ul {
     display: flex;
     flex: auto;
-    flex-direction: row;
     margin: 0 auto;
+    padding: 0 10px;
+    gap: 3px;
+    margin-left: 25%;
+  }
+  nav .navel a {
+    padding: 10px;
+  }
+  .navhome a {
+    padding: 10px;
   }
   nav {
     width: 100%;
     overflow: scroll;
+    align-content: center;
+    height: 50px;
   }
   .text {
     left: 80%;
