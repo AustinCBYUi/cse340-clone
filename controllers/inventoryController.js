@@ -76,7 +76,7 @@ async function addClassification(req, res) {
         req.flash("notice-good",
             `Classification ${classification_name} has been added successfully!`
         )
-        res.status(204).render("inventory/management", {
+        res.status(201).render("inventory/management", {
             title: "Manage",
             nav,
         })
@@ -87,6 +87,7 @@ async function addClassification(req, res) {
         res.status(501).render("inventory/add-classification", {
             title: "Add Classification",
             nav,
+            errors: [{ msg: "There was an error adding the classification. Please try again and check the format"}],
         })
     }
 }
@@ -97,6 +98,7 @@ async function addClassification(req, res) {
 */
 async function addItem(req, res) {
     let nav = await utilities.getNav()
+    let classificationList = await utilities.buildClassificationList()
     const { classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price } = req.body
     const result = await invModel.addItemToInventory(classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price)
 
@@ -104,7 +106,7 @@ async function addItem(req, res) {
         req.flash("notice-good",
             `Item ${inv_year} ${inv_model} has been added successfully!`
         )
-        res.status(204).render("inventory/management", {
+        return res.status(201).render("inventory/management", {
             title: "Manage",
             nav,
         })
@@ -112,9 +114,11 @@ async function addItem(req, res) {
         req.flash("notice-bad",
             "There was an error adding the item. Please try again and check the format."
         )
-        res.status(501).render("inventory/add-inventory", {
+        return res.status(501).render("inventory/add-inventory", {
             title: "Add Item",
             nav,
+            errors: [{ msg: "There was an error adding the item. Please try again and check the format"}],
+            classificationList,
         })
     }
 }

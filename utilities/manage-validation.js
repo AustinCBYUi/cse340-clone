@@ -58,7 +58,7 @@ validateManager.addItemRules = () => {
         body("inv_price")
             .trim()
             .notEmpty()
-            .isFloat()
+            .isNumeric()
             .withMessage("Price is required."),
     ]
 }
@@ -73,7 +73,7 @@ validateManager.checkClassificationData = async (req, res, next) => {
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav()
         res.render("inventory/add-classification", {
-            errors,
+            errors: errors,
             title: "Add Classification",
             nav,
             classification_name,
@@ -94,10 +94,10 @@ validateManager.checkItemData = async (req, res, next) => {
         let nav = await utilities.getNav()
         let classificationList = await utilities.buildClassificationList()
         res.render("inventory/add-inventory", {
-            errors,
+            errors: errors.array(),
             title: "Add Item",
             nav,
-            classificationList,
+            classificationList: classificationList,
             classification_id,
             inv_year,
             inv_make,

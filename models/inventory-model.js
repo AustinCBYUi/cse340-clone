@@ -61,13 +61,15 @@ async function addClassification(classification_name) {
         return error.message
     }
 }
-
+//                                      1               2           3           4           5           6           7           8           9           10
 async function addItemToInventory(classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price) {
     try {
-        const sql = "INSERT INTO public.inventory (inv_id, classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
-        return await pool.query(sql, [classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price])
+        const sql = `INSERT INTO inventory (inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES
+        (DEFAULT, $3, $4, $2, $9, $5, $6, $10, $7, $8, $1) RETURNING *`
+        await pool.query(sql, [classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price])
+        return true
     } catch (error) {
-        return error.message
+        return error.message, false
     }
 }
 
