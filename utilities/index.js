@@ -11,7 +11,7 @@ Util.getNav = async function (req, res, next) {
     data.rows.forEach((row) => {
         list += '<li class="navel">'
         //Don't use backticks I suppose!
-        list += '<a href="/inv/type/' +
+        list += '<a href="/inventory/type/' +
         row.classification_id + 
         '" title="See our inventory of ' +
         row.classification_name +
@@ -30,10 +30,10 @@ Util.getInv = async function (req, res, data) {
     let list = '<ul class="inv-grid">'
     data.rows.forEach((row) => {
         list += '<li class="grid-item-inv">'
-        list += '<a id="hoverlink" href="/inv/' + row.inv_id + '">'
+        list += '<a id="hoverlink" href="/inventory/' + row.inv_id + '">'
         list += '<h2>' + row.inv_year + ' ' + row.inv_make + ' ' + row.inv_model + '</h2>'
         list += "</a>"
-        list += '<a id="hoverlink" href="/inv/' + row.inv_id + '">'
+        list += '<a id="hoverlink" href="/inventory/' + row.inv_id + '">'
         list += '<img src="' + row.inv_image + '" alt="Image of ' + row.inv_make + ' ' + row.inv_model + '"/>'
         list += "</a>"
         list += "</li>"
@@ -53,8 +53,8 @@ Util.getItem = async function (req, res, data) {
         list += '<h2 class="inv-right">' + row.inv_year + ' ' + row.inv_make + ' ' + row.inv_model + '</h2>'
         list += '<p class="inv-right"><b>Description:</b> ' + row.inv_description + '</p>'
         list += '<p class="inv-right"><b>Color:</b> ' + row.inv_color + '</p>'
-        list += '<p class="inv-right"><b>Mileage:</b> ' + row.inv_miles + '</p>'
-        list += '<p class="inv-right"><b>Price:</b> $' + row.inv_price + '</p>'
+        list += '<p class="inv-right"><b>Mileage:</b> ' + new Intl.NumberFormat("en-us").format(row.inv_miles) + '</p>'
+        list += '<p class="inv-right"><b>Price:</b> $' + new Intl.NumberFormat("en-us").format(row.inv_price) + '</p>'
         list += '<a class="inv-right" href="/contactus">'
         list += '<p class="inv-right" id="buy-car">Buy Now</p>'
         list += "</a>"

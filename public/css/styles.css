@@ -38,8 +38,8 @@ nav {
 nav ul {
   list-style-type: none;
   /* background-color: #61ebb1; */
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  display: flex;
+  flex: auto;
   justify-content: center;
 }
 nav .navel a {
@@ -333,7 +333,71 @@ nav .navel a {
   text-align: left;
   margin-left: 15%;
 }
+/* input validator via CSS */
+input:invalid {
+  background-color: rgba(255, 0, 0, 0.452);
+}
+input:valid {
+  background-color: rgba(0, 255, 0, 0.452);
+}
 
+/* Management Page */
+.main_manage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+  margin: 0 auto;
+}
+.main-item {
+  background-color: #222b22;
+  color: white;
+  padding: 15px;
+  margin: 0 auto;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px;
+  list-style-type: none;
+  width: 90%;
+}
+.main-item p {
+  font-size: 14px;
+  padding: 10px;
+}
+.main-item a {
+  text-decoration: none;
+  background-color: #7448ed;
+  color: white;
+  padding: 12px;
+}
+.main-item a:hover {
+  background-color: #364446;
+}
+/* Add Classification Page */
+.add_class_form {
+  background-color: #222b31;
+  margin: 0 auto;
+  padding: 30px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  width: 300px;
+}
+.add_class_form label {
+  margin: 5px auto;
+  padding: 15px;
+  font-weight: 500;
+}
+.add_class_form input {
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 5px;
+  width: 90%;
+  font-weight: 500;
+}
+.add_class_form input[type="text"] {
+  color: white;
+}
 
 footer {
   color: white;
@@ -341,6 +405,12 @@ footer {
   text-align: center;
 }
 
+
+/*
+* Responsive design
+*
+*
+*/
 @media screen and (max-width: 800px) {
   body {
     max-width: 100%;

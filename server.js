@@ -59,7 +59,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 // Account Route
 app.use("/account", utilities.handleErrors(accountRoute))
 //Inventory Route
-app.use("/inv", utilities.handleErrors(inventoryRoute))
+app.use("/inventory", utilities.handleErrors(inventoryRoute))
 app.use(static)
 //Catch all error routes
 app.use(async (req, res, next) => {

@@ -1,0 +1,15 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<form action="/inventory/add-classification" method="post" class="add_class_form">
+    <label for="classification_name">Classification</label>
+    <input type="text" id="classification_name" name="classification_name" required placeholder="classification_name"
+    pattern="(^[A-Za-z0-9_]+$)" <%= locals.classification_name %>>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
