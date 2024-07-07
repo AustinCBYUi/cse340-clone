@@ -1,0 +1,62 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<form action="/inventory/add-inventory" method="post" class="add_inventory_form">
+    <div class="form-group">
+        <%- classificationList %>
+    </div>
+    <div class="form-group">
+        <label for="inv_year">Vehicle Year</label>
+        <input type="text" id="inv_year" name="inv_year" required placeholder="Year"
+        pattern="(^[0-9]{4}$)" <%= locals.inv_year %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_make">Vehicle Make</label>
+        <input type="text" id="inv_make" name="inv_make" required placeholder="Make"
+        pattern="(^[A-Za-z0-9_]+$)" <%= locals.inv_make %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_model">Vehicle Model</label>
+        <input type="text" id="inv_model" name="inv_model" required placeholder="Model"
+        pattern="(^[A-Za-z0-9_]+$)" <%= locals.inv_model %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_image">Vehicle Image</label>
+        <input type="text" id="inv_image" name="inv_image" required placeholder="Image"
+        <%= locals.inv_image %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_thumbnail">Vehicle Thumbnail</label>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" required placeholder="Thumbnail"
+        <%= locals.inv_thumbnail %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_miles">Vehicle Mileage</label>
+        <input type="text" id="inv_miles" name="inv_miles" required placeholder="Mileage"
+        pattern="(^[0-9]+$)" <%= locals.inv_miles %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_color">Vehicle Color</label>
+        <input type="text" id="inv_color" name="inv_color" required placeholder="Color"
+        pattern="(^[A-Za-z0-9_]+$)" <%= locals.inv_color %>>
+    </div>
+    <div class="form-group">
+        <label for="inv_description">Vehicle Description</label>
+        <textarea id="inv_description" name="inv_description" required placeholder="Description"
+        pattern="(^[A-Za-z0-9_]+$)" <%= locals.inv_description %>></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="inv_price">Vehicle Price</label>
+        <input type="text" id="inv_price" name="inv_price" required placeholder="Price"
+        pattern="(^[0-9]+$)" <%= locals.inv_price %>>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

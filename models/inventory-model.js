@@ -62,10 +62,20 @@ async function addClassification(classification_name) {
     }
 }
 
+async function addItemToInventory(classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price) {
+    try {
+        const sql = "INSERT INTO public.inventory (inv_id, classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price) VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *"
+        return await pool.query(sql, [classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price])
+    } catch (error) {
+        return error.message
+    }
+}
+
 module.exports = { 
     getClassifications, 
     getItems, 
     getDetails,
     checkExistingClassification,
     addClassification,
+    addItemToInventory,
 }
