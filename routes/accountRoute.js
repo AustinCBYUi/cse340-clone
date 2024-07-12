@@ -19,6 +19,6 @@ router.post(
     "/login",
     accountValidation.loginRules(),
     accountValidation.checkLoginData,
-    utilities.handleErrors(accountController.loginTester))
+    utilities.handleErrors(accountController.accountLogin))
 
 module.exports = router

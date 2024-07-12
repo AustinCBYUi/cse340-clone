@@ -8,6 +8,7 @@
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const session = require("express-session")
+const cookieParser = require("cookie-parser")
 const bodyParser = require("body-parser")
 const env = require("dotenv").config()
 const app = express()
@@ -41,6 +42,7 @@ app.use(function(req, res, next) {
 //Body Parser middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 
 /* ***********************
