@@ -11,8 +11,8 @@ router.get("/manage", function(req, res) {
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddItem))
 
-router.get("/type/:type", function(req, res) {
-    utilities.handleErrors(invController.buildInv(req, res, req.params["type"]))
+router.get("/type/:classification_id", function(req, res) {
+    utilities.handleErrors(invController.buildInv(req, res, req.params["classification_id"]))
 })
 router.get("/:id", function(req, res) {
     utilities.handleErrors(invController.buildItem(req, res, req.params["id"]))
