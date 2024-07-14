@@ -32,7 +32,12 @@ async function buildItem(req, res, id) {
 */
 async function buildManage(req, res) {
     const nav = await utilities.getNav()
-    res.render("inventory/management", { title: "Manage", nav: nav })
+    const classificationSelect = await utilities.buildClassificationList()
+    res.render("inventory/management",{
+        title: "Manage",
+        nav: nav,
+        classificationSelect,
+    })
 }
 
 
@@ -124,6 +129,19 @@ async function addItem(req, res) {
 }
 
 
+/*
+ * Return inventory by Classification ID
+*/
+async function getInventoryJSON(req, res, next) {
+    const classification_id = parseInt(req.params["classification_id"])
+    const invData = await invModel.getItems(classification_id)
+    if (invData[0].inv_id) {
+        return res.json(invData)
+    } else {
+        next(new Error("No data was returned!"))
+    }
+}
+
 
 module.exports = {
     buildInv,
@@ -133,4 +151,5 @@ module.exports = {
     buildAddItem,
     addClassification,
     addItem,
+    getInventoryJSON,
 };

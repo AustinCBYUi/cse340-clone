@@ -17,6 +17,7 @@ router.get("/type/:classification_id", function(req, res) {
 router.get("/:id", function(req, res) {
     utilities.handleErrors(invController.buildItem(req, res, req.params["id"]))
 })
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 router.post(
     "/add-classification",

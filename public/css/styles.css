@@ -373,6 +373,37 @@ input:valid, select:valid, textarea:valid {
 .main-item a:hover {
   background-color: #364446;
 }
+.main-item-long {
+  background-color: #222b22;
+  color: white;
+  padding: 15px;
+  margin: 0 auto;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 10px;
+  list-style-type: none;
+  width: 90%;
+  grid-column: 1/3;
+}
+#inventoryDisplay {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+  margin: 5px auto;
+  justify-items: center
+}
+#inventoryDisplay tr:nth-child(even) {
+  background-color: #364446;
+}
+#inventoryDisplay tr a {
+  background-color: #7448ed;
+  padding: 5px;
+  font-size: 11px;
+  text-decoration: none;
+  color: white;
+  margin: 3px auto;
+}
 /* Add Classification Page */
 .add_class_form {
   background-color: #222b31;

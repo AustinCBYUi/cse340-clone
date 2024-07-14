@@ -11,4 +11,13 @@
         <p>Adds a new vehicle to the inventory</p>
         <a href="/inventory/add-inventory" class="button">Add</a>
     </div>
+    <div class="main-item-long">
+        <h3>Manage Inventory</h3>
+        <p>Adds, edits or removes inventory items</p>
+        <p>Select a classification to view items in that classification.</p>
+        <%- classificationSelect %>
+        <table id="inventoryDisplay"></table>
+        <noscript>JavaScript must be enabled to use this page.</noscript>
+    </div>
 </div>
+<script src="../../js/inventory.js"></script>

@@ -23,4 +23,18 @@ async function checkExistingEmail(account_email) {
     }
 }
 
-module.exports = { insertUserData, checkExistingEmail }
+
+/* ***********************
+* Return account data using email address
+*************************/
+async function getAccountByEmail(account_email) {
+    try {
+        const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1"
+        const result = await pool.query(sql, [account_email])
+        return result.rows[0]
+    } catch (error) {
+        return new Error("No matching email found.")
+    }
+}
+
+module.exports = { insertUserData, checkExistingEmail, getAccountByEmail }

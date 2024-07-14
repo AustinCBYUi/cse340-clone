@@ -1,0 +1,9 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>

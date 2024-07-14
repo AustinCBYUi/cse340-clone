@@ -70,7 +70,7 @@ Util.getItem = async function (req, res, data) {
 Util.buildClassificationList = async function (classification_id = null) {
     let data = await invModel.getClassifications()
     let classificationList =
-        `<select name="classification_id" id="classificationList" required>`
+        `<select name="classification_id" id="classificationList" title="classification selector" required>`
     classificationList += `<option value="" class="home-select">Select a Classification</option>`
     data.rows.forEach((row) => {
         classificationList += '<option value="' + row.classification_id + '"'
@@ -85,6 +85,19 @@ Util.buildClassificationList = async function (classification_id = null) {
     classificationList += "</select>"
     return classificationList
 }
+
+/* ***********************
+* Check login
+*************************/
+// Util.checkLogin = async (req, res, next) => {
+//     const loggedIn = await res.locals.loggedin
+//     if (loggedIn) {
+//         next()
+//     } else {
+//         req.flash("notice-bad", "Please log in.")
+//         return res.redirect("/account/login")
+//     }
+// }
 
 /* ***********************
  * Middleware for handling errors

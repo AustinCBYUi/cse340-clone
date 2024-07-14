@@ -8,6 +8,8 @@ const accountController = require("../controllers/accountController")
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 //Get register view.
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
+//Get logged in?
+router.get("/", utilities.handleErrors(accountController.buildAccountManage))
 //Establish the POST for registration
 router.post(
     "/register",

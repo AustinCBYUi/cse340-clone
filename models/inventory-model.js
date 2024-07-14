@@ -15,7 +15,8 @@ async function getClassifications() {
 async function getItems(classification_id) {
     try {
         const sql = `SELECT * FROM inventory WHERE classification_id = ${classification_id}`
-        return await pool.query(sql)
+        const inject = await pool.query(sql)
+        return inject.rows
     } catch (error) {
         return error.message
     }
