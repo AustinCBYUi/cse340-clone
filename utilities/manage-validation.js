@@ -3,6 +3,9 @@ const inventoryModel = require("../models/inventory-model")
 const { body, validationResult } = require("express-validator")
 const validateManager = {}
 
+/* ***********************
+* Rules for validating the classification form
+*************************/
 validateManager.addClassificationRules = () => {
     return [
         body("classification_name")
@@ -18,6 +21,9 @@ validateManager.addClassificationRules = () => {
     ]
 }
 
+/* ***********************
+* Rules for validating the item form
+*************************/
 validateManager.addItemRules = () => {
     return [
         body("classification_id"),
@@ -114,5 +120,36 @@ validateManager.checkItemData = async (req, res, next) => {
     next()
 }
 
+/* ***********************
+* Check updated data and return errors
+*************************/
+validateManager.checkUpdateData = async (req, res, next) => {
+    const { classification_id, inv_year, inv_make, inv_model, inv_image, inv_thumbnail, inv_miles, inv_color, inv_description, inv_price, inv_id} = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        let classificationList = await utilities.buildClassificationList()
+        res.render("inventory/edit-inventory", {
+            errors: errors.array(),
+            title, //May be an issue here
+            nav,
+            classificationList: classificationList,
+            classification_id,
+            inv_year,
+            inv_make,
+            inv_model,
+            inv_image,
+            inv_thumbnail,
+            inv_miles,
+            inv_color,
+            inv_description,
+            inv_price,
+            inv_id,
+        })
+        return
+    }
+    next()
+}
 
 module.exports = validateManager

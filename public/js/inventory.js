@@ -1,6 +1,5 @@
 'use strict'
 
-//TODO: Something here is broken, it's not reading JSON.
 let classificationList = document.querySelector("#classificationList")
 classificationList.addEventListener("change", function () {
     let classification_id = classificationList.value;
@@ -35,10 +34,25 @@ function buildInventoryList(data) {
     data.forEach(function (element) {
         console.log(element.inv_id + ", " + element.inv_model);
         dataTable += `<tr><td>${element.inv_make} ${element.inv_model}</td>`;
-        dataTable += `<td><a href="/inv/edit/${element.inv_id}" title="Click to update">Edit</a></td>`;
-        dataTable += `<td><a href="/inv/delete/${element.inv_id}" title="Click to delete">Delete</a></td></tr>`;
+        dataTable += `<td><a href="/inventory/edit/${element.inv_id}" title="Click to update">Edit</a></td>`;
+        dataTable += `<td><a href="/inventory/delete/${element.inv_id}" title="Click to delete">Delete</a></td></tr>`;
     })
     dataTable += '</tbody>';
     //Display the contents in the Inventory Manager
     inventoryDisplay.innerHTML = dataTable;
 }
+
+const form = document.querySelector("#updateForm")
+if (form) {
+    form.addEventListener("change", function () {
+        const updateBtn = document.querySelector("button")
+        updateBtn.removeAttribute("disabled")
+    })
+}
+
+//Work on this??
+// const deleteConfirmation = document.querySelector("#checkDelete")
+// deleteConfirmation.addEventListener("click", function () {
+//     const deleteHTML = `<div class="confirm">
+//     <p>Are you sure you want to delete this item?</p>`
+// })

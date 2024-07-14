@@ -4,7 +4,7 @@ const { body, validationResult } = require("express-validator")
 const validate = {}
 
 /* ***********************
-* Validate Data
+* Validate Data for logging in.
 *************************/
 validate.loginRules = () => {
     return [
@@ -28,7 +28,50 @@ validate.loginRules = () => {
     ]
 }
 
+/* ***********************
+* Validate the password meets the requirements specified.
+*************************/
+validate.passwordUpdateRules = () => {
+    return [
+        body("account_password")
+            .trim()
+            .notEmpty()
+            .isStrongPassword({
+                minLength: 12,
+                minLowercase: 1,
+                minUppercase: 1,
+                minNumbers: 1,
+                minSymbols: 1,
+            })
+            .withMessage("Password does not meet the specifications."),
+    ]
+}
 
+/* ***********************
+* Validate the new data people are updating their accounts with.
+* Cannot include email because it will check if the email is already in use?
+*************************/
+validate.updateDataRules = () => {
+    return [
+        body("account_firstname")
+        .trim()
+        .escape()
+        .notEmpty()
+        .isLength({ min: 1 })
+        .withMessage("First name is required."),
+
+    body("account_lastname")
+        .trim()
+        .escape()
+        .notEmpty()
+        .isLength({ min: 2 })
+        .withMessage("Last name is required."),
+    ]
+}
+
+/* ***********************
+* Validate the data users are registering with.
+*************************/
 validate.registrationRules = () => {
     return [
         body("account_firstname")
@@ -94,6 +137,9 @@ validate.checkRegData = async (req, res, next) => {
     next()
 }
 
+/* ***********************
+* Check login data and return errors
+*************************/
 validate.checkLoginData = async (req, res, next) => {
     const {account_email, account_password } = req.body
     let errors = []
@@ -110,5 +156,47 @@ validate.checkLoginData = async (req, res, next) => {
     }
     next()
 }
+
+/* ***********************
+* Check data and return errors for updating account
+*************************/
+validate.checkUpdateData = async (req, res, next) => {
+    const { account_firstname, account_lastname, account_email } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/update-account", {
+            errors,
+            title: "Update Account",
+            nav,
+            account_firstname,
+            account_lastname,
+            account_email,
+        })
+        return
+    }
+    next()
+}
+
+/* ***********************
+* Check data and return errors for updating passwords
+*************************/
+validate.checkUpdatePassword = async (req, res, next) => {
+    const { account_password } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/update-account", {
+            errors,
+            title: "Update Password",
+            nav,
+        })
+        return
+    }
+    next()
+}
+
 
 module.exports = validate

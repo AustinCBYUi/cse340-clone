@@ -1,0 +1,45 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<form action="/account/update" method="post" class="add_inventory_form">
+    <div class="form-group">
+        <label for="account_firstname">First Name</label>
+        <input type="text" id="account_firstname" name="account_firstname" value="<%= accountData.account_firstname %>" required>
+    </div>
+    <div class="form-group">
+        <label for="account_lastname">Last Name</label>
+        <input type="text" id="account_lastname" name="account_lastname" value="<%= accountData.account_lastname %>" required>
+    </div>
+    <div class="form-group">
+        <label for="account_email">Email</label>
+        <input type="email" id="account_email" name="account_email" value="<%= accountData.account_email %>" required>
+    </div>
+    <button type="submit">Update Account</button>
+    <input type="hidden" name="account_id" 
+    <% if(accountData.account_id) { %> value="<%= accountData.account_id %>"
+    <% } %>>
+</form>
+
+<form action="/account/password" method="post" class="add_inventory_form" id="passwordform">
+    <div class="form-group">
+        <label for="account_old_password">Old Password</label>
+        <input type="password" id="account_old_password" name="account_old_password" required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    </div>
+    <div class="form-group">
+        <label for="new_account_password">New Password</label>
+        <input type="password" id="new_account_password" name="new_account_password" required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    </div>
+    <p>If you decide to change your password, please keep track of it.</p>
+    <button type="submit">Update Password</button>
+    <input type="hidden" name="account_id"
+    <% if(accountData.account_id) { %> value="<%= accountData.account_id %>"
+    <% } %>>
+</form>

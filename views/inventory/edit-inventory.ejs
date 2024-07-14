@@ -1,0 +1,66 @@
+<%- messages() %>
+<% if (errors && errors.length > 0) { %>
+    <ul class="notice-bad">
+    <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<form action="/inventory/edit/" method="post" id="updateForm" class="add_inventory_form">
+    <div class="form-group">
+        <%- classificationList %>
+    </div>
+    <div class="form-group">
+        <label for="inv_year">Vehicle Year</label>
+        <input type="text" id="inv_year" name="inv_year" required placeholder="Year"
+        pattern="(^[0-9]{4}$)" value="<%= inv_year %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_make">Vehicle Make</label>
+        <input type="text" id="inv_make" name="inv_make" required placeholder="Make"
+        pattern="(^[A-Za-z0-9_]+$)" value="<%= inv_make %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_model">Vehicle Model</label>
+        <input type="text" id="inv_model" name="inv_model" required placeholder="Model"
+        pattern="(^[A-Za-z0-9_]+$)" value="<%= inv_model %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_image">Vehicle Image</label>
+        <input type="text" id="inv_image" name="inv_image" required placeholder="Image"
+        value="<%= inv_image %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_thumbnail">Vehicle Thumbnail</label>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" required placeholder="Thumbnail"
+        value="<%= inv_thumbnail %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_miles">Vehicle Mileage</label>
+        <input type="text" id="inv_miles" name="inv_miles" required placeholder="Mileage"
+        pattern="(^[0-9]+$)" value="<%= inv_miles %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_color">Vehicle Color</label>
+        <input type="text" id="inv_color" name="inv_color" required placeholder="Color"
+        pattern="(^[A-Za-z0-9_]+$)" value="<%= inv_color %>">
+    </div>
+    <div class="form-group">
+        <label for="inv_description">Vehicle Description</label>
+        <textarea id="inv_description" name="inv_description" required placeholder="Description"
+        pattern="(^[A-Za-z0-9_]+$)"><%= inv_description %></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="inv_price">Vehicle Price</label>
+        <input type="text" id="inv_price" name="inv_price" required placeholder="Price"
+        pattern="(^[0-9]+$)" value="<%= inv_price %>">
+    </div>
+
+    <button disabled type="submit" class="btn btn-primary">Update Vehicle</button>
+    <input type="hidden" name="inv_id" 
+    <% if(locals.inv_id) { %> value="<%= inv_id %>"
+    <% } %>>
+</form>
+<script src="../../js/inventory.js"></script>

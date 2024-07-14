@@ -13,8 +13,10 @@ body {
   margin: auto;
 }
 
-header, header a {
+header {
   background-color: #222b31;
+}
+header a, header p {
   color: white;
   text-decoration: none;
 }
@@ -23,7 +25,16 @@ header .siteName {
   padding: 10px;
 }
 header #tools {
-  margin-left: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.loggedin-stuff {
+  grid-column: 2/3;
+  margin-left: 65%;
+}
+.user-name {
+  color: #54df62;
 }
 header a:hover {
   color: green;
@@ -231,6 +242,33 @@ nav .navel a {
 }
 
 /* End of Reviews Side */
+
+/* Logged in landing page */
+.login-landing {
+  margin: 0 auto;
+  text-align: center;
+}
+.lander-link {
+  text-decoration: none;
+  color: white;
+  background-color: #7448ed;
+  padding: 10px;
+  margin: 0 auto;
+}
+.lander-link:hover {
+  background-color: #4420a8;
+}
+.account-Admin {
+  color: red;
+}
+.account-Employee {
+  color: green;
+}
+.account-Client {
+  color: #7448ed;
+
+}
+
 
 /* Flash message */
 .notice-bad {
@@ -442,6 +480,9 @@ input:valid, select:valid, textarea:valid {
 }
 .form-group {
   padding: 10px;
+}
+.form-group input[type="email"] {
+  color: white;
 }
 .add_inventory_form select {
   margin: 5px auto;

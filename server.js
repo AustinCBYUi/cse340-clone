@@ -20,6 +20,7 @@ const pool = require("./database/")
 const accountRoute = require("./routes/accountRoute")
 
 
+
 /* ***********************
  * Middleware
  *************************/
@@ -43,6 +44,8 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
+app.use(utilities.checkJWTToken)
+
 
 
 /* ***********************
@@ -90,12 +93,15 @@ app.use(async (err, req, res, next) => {
 })
 
 
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
+
 
 /* ***********************
  * Log statement to confirm server operation

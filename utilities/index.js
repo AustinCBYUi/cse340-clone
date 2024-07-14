@@ -1,5 +1,8 @@
 const invModel = require("../models/inventory-model")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const Util = {}
+
 
 /* ***********************
  * Gets the navigation bars
@@ -23,9 +26,10 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
-/*
- * Populates the view with data from a specific category of vehicles.
-*/
+
+/* ***********************
+* Populates the view with data from the inventory table.
+*************************/
 Util.getInv = async function (req, res, data) {
     let list = '<ul class="inv-grid">'
     data.rows.forEach((row) => {
@@ -42,9 +46,10 @@ Util.getInv = async function (req, res, data) {
     return list
 }
 
-/*
- * Populates the view with data from an individual item by id.
-*/
+
+/* ***********************
+* Populates the view with data from a specific vehicle.
+*************************/
 Util.getItem = async function (req, res, data) {
     let list = '<ul class="inv-detail-view">'
     data.rows.forEach((row) => {
@@ -63,6 +68,7 @@ Util.getItem = async function (req, res, data) {
     list += "</ul>"
     return list
 }
+
 
 /* ***********************
 * Builds the classification Select box
@@ -86,18 +92,80 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList
 }
 
+
 /* ***********************
-* Check login
+* Authorize JWT Token / user
 *************************/
-// Util.checkLogin = async (req, res, next) => {
-//     const loggedIn = await res.locals.loggedin
-//     if (loggedIn) {
-//         next()
-//     } else {
-//         req.flash("notice-bad", "Please log in.")
-//         return res.redirect("/account/login")
-//     }
-// }
+Util.checkJWTToken = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    req.flash("notice-bad", "Please log in.")
+                    res.clearCookie("jwt")
+                    res.locals.loggedin = 0
+                    return res.redirect("/account/login")
+                }
+            res.locals.accountData = accountData
+            res.locals.loggedin = 1
+            next()
+            })
+    } else {
+        res.locals.loggedin = 0
+        next()
+    }
+}
+
+
+/* ***********************
+* Check login, this works great compared to the original solution.
+*************************/
+Util.checkLogin = (req, res, next) => {
+    const token = req.cookies.jwt
+    if (token) {
+        jwt.verify(
+            token,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    req.flash("notice-bad", "Please log in.")
+                    return res.redirect("/account/login")
+                } else {
+                    res.locals.loggedin = 1
+                    res.locals.accountData = accountData
+                    res.locals.account_type = accountData.account_type
+                    return next()
+                }
+            })
+    } else {
+        req.flash("notice-bad", "Please log in.")
+        return res.redirect("/account/login")
+    }
+}
+
+/* ***********************
+* Check account type
+*************************/
+Util.checkAccountType = (account_type) => {
+    return (req, res, next) => {
+        if (res.locals.loggedin && account_type.includes(res.locals.account_type)) {
+            next();
+        } else {
+            req.flash("notice-bad", "You do not have permission to access this page.")
+            res.redirect("/")
+        }
+    }
+}
+
+/* ***********************
+* Password hasher
+*************************/
+Util.hashPassword = async (password, saltRounds = 10) => {
+    const bcrypt = require("bcrypt")
+    return await bcrypt.hash(password, saltRounds)
+}
 
 /* ***********************
  * Middleware for handling errors

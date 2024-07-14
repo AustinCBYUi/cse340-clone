@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 require("dotenv").config()
 
+
+
 /* ***********************
 * Deliver login view
 *************************/
@@ -16,14 +18,6 @@ async function buildLogin(req, res, next) {
     })
 }
 
-async function loginTester(req, res, next) {
-    let nav = await utilities.getNav()
-    res.render("account/login", {
-        title: "Logged in",
-        nav,
-        errors: null,
-    })
-}
 
 /* ***********************
 * Deliver register view
@@ -37,10 +31,11 @@ async function buildRegister(req, res, next) {
     })
 }
 
+
 /* ***********************
-* Deliver logged in view
+* Deliver logged in view aka landing page.
 *************************/
-async function buildAccountManage(req, res, next) {
+async function buildAccountLander(req, res, next) {
     let nav = await utilities.getNav()
     res.render("account/acc-manage", {
         title: "Logged In",
@@ -51,13 +46,12 @@ async function buildAccountManage(req, res, next) {
 
 
 /* ***********************
-* Register user
+* Register user.
 *************************/
 async function registerUser(req, res) {
-    const saltRounds = 10;
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
-    const hashedPassword = await bcrypt.hash(account_password, saltRounds);
+    const hashedPassword = await utilities.hashPassword(account_password);
 
     const regResult = await accountModel.insertUserData(
         account_firstname,
@@ -89,7 +83,7 @@ async function registerUser(req, res) {
 
 
 /* ***********************
-* Login user
+* Login the user, compare passwords as well obviously.
 *************************/
 async function accountLogin(req, res) {
     let nav = await utilities.getNav()
@@ -115,7 +109,6 @@ async function accountLogin(req, res) {
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
-            res.locals.loggedin = true
             res.redirect("/account/")
         }
     } catch (error) {
@@ -123,4 +116,129 @@ async function accountLogin(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegister, buildAccountManage, registerUser, loginTester, accountLogin }
+
+/* ***********************
+* Logout user (DOES WORK!!)
+*************************/
+async function accountLogout(req, res) {
+    delete res.locals
+    res.clearCookie("jwt")
+    req.flash("notice-good", "You have been logged out.")
+    res.redirect("/")
+}
+
+
+/* ***********************
+* Deliver account manager view
+*************************/
+async function buildAccountManage(req, res, next) {
+    const accountData = res.locals.accountData
+    let nav = await utilities.getNav()
+    res.render("account/update-account", {
+        title: "Account Manager",
+        nav,
+        errors: null,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+        account_id: accountData.account_id,
+    })
+}
+
+/* ***********************
+* Update account via account manager
+*************************/
+async function updateAccount(req, res) {
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    const updateResult = await accountModel.updateAccountData(
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_id
+    )
+
+    if (updateResult) {
+        req.flash("notice-good",
+            `Your account has been updated successfully! Please re-log to see changes!`
+        )
+        res.redirect("/account/")
+    } else {
+        req.flash("notice-bad",
+            "There was an error updating your account. Please try again and check the format."
+        )
+        return res.status(501).render("account/update-account", {
+            title: "Account Manager",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id,
+        })
+    }
+}
+
+/* ***********************
+* Update password via account manager
+*************************/
+async function updatePassword(req, res) {
+    const { account_old_password, new_account_password, account_id } = req.body
+    const accountData = await accountModel.getAccountById(account_id)
+
+    try {
+        if (await bcrypt.compare(account_old_password, accountData.account_password)) {
+            delete accountData.account_password
+            const hashedPassword = await utilities.hashPassword(new_account_password)
+            const updateResult = await accountModel.updateAccountPassword(
+                hashedPassword,
+                account_id
+            )
+
+        if (updateResult) {
+            req.flash("notice-good",
+                `Your password has been updated successfully! Please log in with the new password.`
+            )
+            // accountLogout(res, req)
+            res.redirect("/account/login")
+        } else {
+            req.flash("notice-bad",
+                "There was an error updating your password. Please try again and check the format."
+            )
+            return res.status(501).render("account/update-account", {
+                title: "Account Manager",
+                nav,
+                errors: null,
+                account_firstname,
+                account_lastname,
+                account_email,
+                account_id,
+            })
+        }
+    }
+} catch (error) {
+        req.flash("notice-bad",
+            "Sorry, the old password you entered is incorrect."
+        )
+        return res.status(400).render("account/update-account", {
+            title: "Account Manager",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id,
+        })
+    }
+}
+
+module.exports = { 
+    buildLogin,
+    buildRegister,
+    buildAccountLander,
+    buildAccountManage,
+    registerUser,
+    accountLogin,
+    accountLogout,
+    updateAccount,
+    updatePassword,
+}
