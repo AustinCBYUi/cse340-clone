@@ -22,11 +22,11 @@
     "express-messages": "^1.0.1",
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
-    "pg": "^8.8.0"
+    "pg": "^8.8.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
-    "jsonwebtoken": "^9.0.2",
     "livereload": "^0.9.3",
     "nodemon": "^3.1.3"
   }
