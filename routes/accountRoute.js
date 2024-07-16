@@ -22,6 +22,23 @@ router.get("/logout",
 router.get("/manage", utilities.checkLogin,
     utilities.checkAccountType(["Admin", "Employee", "Client"]),
     utilities.handleErrors(accountController.buildAccountManage))
+//Admin panel
+router.get("/admin",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    utilities.handleErrors(accountController.buildAdminAccountManager)
+)
+router.get("/admin/admin-view-users",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    utilities.handleErrors(accountController.buildAdminAccountEditor)
+)
+//Get all accounts as a JSON
+router.get("/admin/getAccounts",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    utilities.handleErrors(accountController.getAccountJSON)
+)
 
 
 

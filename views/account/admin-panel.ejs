@@ -1,0 +1,16 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<div class="main-manage">
+    <div class="main-item">
+        <h3>View Users</h3>
+        <p>Displays all registered users</p>
+        <a href="/account/admin/admin-view-users" class="button">View</a>
+    </div>
+</div>

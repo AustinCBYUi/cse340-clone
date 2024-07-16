@@ -12,6 +12,9 @@
         <h2>Welcome <span class="account-<%= accountData.account_type%>"><%= accountData.account_firstname %></span></h2>
     <% if (accountData.account_type === 'Admin' || accountData.account_type === 'Employee') { %>
         <p>You are an <span class="account-<%= accountData.account_type%>"><%= accountData.account_type %>!</span> You have access to the Inventory Manager.</p>
+        <% if (accountData.account_type === 'Admin') { %>
+            <a class="lander-link" href="/account/admin" title="Click to access admin tools">Admin Tools</a>
+        <% } %>
         <a class="lander-link" href="/inventory/manage">Inventory Manager</a>
     <% } %>
         <a class="lander-link" href="/account/manage" title="Click to manage your account">Manage Account</a><br>

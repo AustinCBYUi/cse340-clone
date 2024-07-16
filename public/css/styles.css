@@ -442,6 +442,36 @@ input:valid, select:valid, textarea:valid {
   color: white;
   margin: 3px auto;
 }
+#usersDisplay {
+  background-color: #222b22;
+  color: white;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+  margin: 5px auto;
+  justify-items: center
+}
+#usersDisplay td {
+  padding: 10px;
+  text-align: center;
+}
+#usersDisplay tbody tr:nth-child(even) {
+  background-color: #364446;
+}
+#usersDisplay tbody tr:nth-child(odd) {
+  background-color: #252a2b;
+}
+#usersDisplay tr a {
+  background-color: #7448ed;
+  padding: 10px;
+  font-size: 11px;
+  text-decoration: none;
+  color: white;
+  margin: 3px auto;
+  align-self: center;
+}
 /* Add Classification Page */
 .add_class_form {
   background-color: #222b31;

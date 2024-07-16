@@ -88,6 +88,20 @@ async function updateAccountPassword(account_password, account_id) {
     }
 }
 
+
+/* ***********************
+* Retrieves all accounts from the database, sorts them from Client, then Employees, then Admins
+*************************/
+async function getAllAccounts() {
+    try {
+        const sql = "SELECT * FROM account ORDER BY account_type ASC"
+        const inject = await pool.query(sql)
+        return inject.rows
+    } catch (error) {
+        return error.message
+    }
+}
+
 module.exports = {
     insertUserData,
     checkExistingEmail,
@@ -95,4 +109,5 @@ module.exports = {
     getAccountById,
     updateAccountData,
     updateAccountPassword,
+    getAllAccounts,
 }

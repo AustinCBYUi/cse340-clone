@@ -167,6 +167,7 @@ Util.hashPassword = async (password, saltRounds = 10) => {
     return await bcrypt.hash(password, saltRounds)
 }
 
+
 /* ***********************
  * Middleware for handling errors
  * wrap other functions in this for general

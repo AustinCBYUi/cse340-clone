@@ -231,6 +231,48 @@ async function updatePassword(req, res) {
     }
 }
 
+
+/* ***********************
+* Build Admin Panel
+*************************/
+async function buildAdminAccountManager(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/admin-panel", {
+        title: "Administarator Panel",
+        nav,
+        errors: null,
+    })
+}
+
+
+/* ***********************
+* Build the accounts edit view for admins
+*************************/
+async function buildAdminAccountEditor(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/admin-view-users", {
+        title: "Users",
+        nav,
+        errors: null,
+    })
+}
+
+
+/* ***********************
+* Return the accounts to the client as JSON,
+* ONLY USED BY ADMIN / EMPLOYEE
+*************************/
+async function getAccountJSON(req, res, next) {
+    //Need to get all accounts from the database
+    const accountData = await accountModel.getAllAccounts()
+    if (accountData[0].account_id) {
+        return res.json(accountData)
+    } else {
+        next(new Error("No data was returned!"))
+    }
+}
+
+
 module.exports = { 
     buildLogin,
     buildRegister,
@@ -241,4 +283,7 @@ module.exports = {
     accountLogout,
     updateAccount,
     updatePassword,
+    buildAdminAccountManager,
+    buildAdminAccountEditor,
+    getAccountJSON,
 }

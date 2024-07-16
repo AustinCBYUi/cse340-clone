@@ -32,7 +32,6 @@ function buildInventoryList(data) {
     dataTable += '<tbody>';
     //Iterate over all vehicles in the array
     data.forEach(function (element) {
-        console.log(element.inv_id + ", " + element.inv_model);
         dataTable += `<tr><td>${element.inv_make} ${element.inv_model}</td>`;
         dataTable += `<td><a href="/inventory/edit/${element.inv_id}" title="Click to update">Edit</a></td>`;
         dataTable += `<td><a href="/inventory/delete/${element.inv_id}" title="Click to delete">Delete</a></td></tr>`;

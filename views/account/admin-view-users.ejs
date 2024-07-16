@@ -1,0 +1,12 @@
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice-bad">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+<% } %>
+<h1><%- title %></h1>
+<table id="usersDisplay"></table>
+<noscript>JavaScript must be enabled to access this feature.</noscript>
+<script src="../../js/admin.js"></script>
