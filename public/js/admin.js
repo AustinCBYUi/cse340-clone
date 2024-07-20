@@ -25,8 +25,8 @@ function buildAccountsList(data) {
     dataTable += '<tbody>';
     data.forEach(function (element) {
         dataTable += `<tr><td>${element.account_firstname} </td><td>${element.account_lastname}</td><td>${element.account_email}</td><td>${element.account_type}</td>`;
-        dataTable += `<td><a href="/admin/edit/${element.account_id}" title="Click to update">Edit</a></td>`;
-        dataTable += `<td><a href="/admin/delete/${element.account_id}" title="Click to delete">Delete</a></td></tr>`;
+        dataTable += `<td><a href="/account/admin/edit/${element.account_id}" title="Click to update">Edit</a></td>`;
+        dataTable += `<td><a href="/account/admin/delete/${element.account_id}" title="Click to delete">Delete</a></td></tr>`;
     })
     dataTable += '</tbody>';
     accountDisplay.innerHTML = dataTable;

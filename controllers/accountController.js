@@ -273,6 +273,111 @@ async function getAccountJSON(req, res, next) {
 }
 
 
+/* ***********************
+* Deliver account manager view for admins
+*************************/
+async function buildAdminAccountEdit(req, res, next) {
+    const account_id = parseInt(req.params["account_id"])
+    const userData = await accountModel.getAccountById(account_id, true)
+    const accountData = userData[0]
+    let nav = await utilities.getNav()
+    res.render("./account/admin-edit-user", {
+        title: "Admin User Editor",
+        nav,
+        errors: null,
+        accountData,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+        account_id: accountData.account_id,
+    })
+}
+
+
+/* ***********************
+* Updating user accounts for admins
+*************************/
+async function adminUpdateUserAccount(req, res, next) {
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    const updateResult = await accountModel.updateAccountData(
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_id
+    )
+
+    if (updateResult) {
+        req.flash("notice-good",
+            `The account has been updated successfully!`
+        )
+        res.redirect("/account/admin/admin-view-users")
+    } else {
+        req.flash("notice-bad",
+            "There was an error updating the account. Please try again and check the format."
+        )
+        return res.status(501).render("account/admin-edit-user", {
+            title: "Admin User Editor",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id,
+        })
+    }
+}
+
+
+/* ***********************
+* Build user accounts delete for admins
+*************************/
+async function buildAdminAccountDelete(req, res) {
+    const account_id = parseInt(req.params["account_id"])
+    const userData = await accountModel.getAccountById(account_id, true)
+    const accountData = userData[0]
+    let nav = await utilities.getNav()
+    res.render("./account/admin-delete-user", {
+        title: "Admin User Deleter",
+        nav,
+        errors: null,
+        accountData,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+        account_id: accountData.account_id,
+    })
+}
+
+
+/* ***********************
+* Delete user accounts for admins
+*************************/
+async function adminDeleteUserAccount(req, res) {
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    const deleteResult = await accountModel.deleteAccountById(account_id)
+
+    if (deleteResult) {
+        req.flash("notice-good",
+            `The account has been deleted successfully!`
+        )
+        res.redirect("/account/admin/admin-view-users")
+    } else {
+        req.flash("notice-bad",
+            "There was an error deleting the account. Please try again and check the format."
+        )
+        return res.status(501).render("account/admin-delete-user", {
+            title: "Admin Delete User",
+            nav,
+            errors: null,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id,
+        })
+    }
+}
+
+
 module.exports = { 
     buildLogin,
     buildRegister,
@@ -286,4 +391,8 @@ module.exports = {
     buildAdminAccountManager,
     buildAdminAccountEditor,
     getAccountJSON,
+    buildAdminAccountEdit,
+    adminUpdateUserAccount,
+    buildAdminAccountDelete,
+    adminDeleteUserAccount,
 }

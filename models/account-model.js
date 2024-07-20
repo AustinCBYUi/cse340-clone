@@ -50,11 +50,15 @@ async function getAccountByEmail(account_email) {
 /* ***********************
 * Return account data using account_id
 *************************/
-async function getAccountById(account_id) {
+async function getAccountById(account_id, returnRows = false) {
     try {
         const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_id = $1"
         const result = await pool.query(sql, [account_id])
-        return result.rows[0]
+        if (returnRows) {
+            return result.rows
+        } else {
+            return result.rows[0]
+        }
     } catch (error) {
         return new Error("No matching account found.")
     }
@@ -102,6 +106,20 @@ async function getAllAccounts() {
     }
 }
 
+
+/* ***********************
+* Delete a user from the database
+*************************/
+async function deleteAccountById(account_id) {
+    try {
+        const sql = "DELETE FROM account WHERE account_id = $1"
+        await pool.query(sql, [account_id])
+        return true
+    } catch (error) {
+        return error.message
+    }
+}
+
 module.exports = {
     insertUserData,
     checkExistingEmail,
@@ -110,4 +128,5 @@ module.exports = {
     updateAccountData,
     updateAccountPassword,
     getAllAccounts,
+    deleteAccountById,
 }

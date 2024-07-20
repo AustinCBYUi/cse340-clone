@@ -39,6 +39,18 @@ router.get("/admin/getAccounts",
     utilities.checkAccountType(["Admin"]),
     utilities.handleErrors(accountController.getAccountJSON)
 )
+//Edit individual accounts by account_id
+router.get("/admin/edit/:account_id",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    utilities.handleErrors(accountController.buildAdminAccountEdit)
+)
+//Delete individual accounts by account_id
+router.get("/admin/delete/:account_id",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    utilities.handleErrors(accountController.buildAdminAccountDelete)
+)
 
 
 
@@ -73,6 +85,23 @@ router.post("/password",
     accountValidation.passwordUpdateRules(),
     accountValidation.checkUpdatePassword,
     utilities.handleErrors(accountController.updatePassword)
+)
+
+//POST for updating a user account as an admin
+router.post("/admin/edit/",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    accountValidation.updateDataRules(),
+    accountValidation.checkUpdateData,
+    utilities.handleErrors(accountController.adminUpdateUserAccount)
+)
+
+//POST for deleting a user account as an administrator
+router.post("/admin/delete/",
+    utilities.checkLogin,
+    utilities.checkAccountType(["Admin"]),
+    accountValidation.updateDataRules(),
+    utilities.handleErrors(accountController.adminDeleteUserAccount)
 )
 
 module.exports = router
