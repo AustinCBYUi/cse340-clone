@@ -237,7 +237,7 @@ async function updatePassword(req, res) {
 *************************/
 async function buildAdminAccountManager(req, res, next) {
     let nav = await utilities.getNav()
-    res.render("account/admin-panel", {
+    res.render("account/admin/admin-panel", {
         title: "Administarator Panel",
         nav,
         errors: null,
@@ -250,7 +250,7 @@ async function buildAdminAccountManager(req, res, next) {
 *************************/
 async function buildAdminAccountEditor(req, res, next) {
     let nav = await utilities.getNav()
-    res.render("account/admin-view-users", {
+    res.render("account/admin/admin-view-users", {
         title: "Users",
         nav,
         errors: null,
@@ -281,7 +281,7 @@ async function buildAdminAccountEdit(req, res, next) {
     const userData = await accountModel.getAccountById(account_id, true)
     const accountData = userData[0]
     let nav = await utilities.getNav()
-    res.render("./account/admin-edit-user", {
+    res.render("./account/admin/admin-edit-user", {
         title: "Admin User Editor",
         nav,
         errors: null,
@@ -315,7 +315,7 @@ async function adminUpdateUserAccount(req, res, next) {
         req.flash("notice-bad",
             "There was an error updating the account. Please try again and check the format."
         )
-        return res.status(501).render("account/admin-edit-user", {
+        return res.status(501).render("account/admin/admin-edit-user", {
             title: "Admin User Editor",
             nav,
             errors: null,
@@ -336,7 +336,7 @@ async function buildAdminAccountDelete(req, res) {
     const userData = await accountModel.getAccountById(account_id, true)
     const accountData = userData[0]
     let nav = await utilities.getNav()
-    res.render("./account/admin-delete-user", {
+    res.render("./account/admin/admin-delete-user", {
         title: "Admin User Deleter",
         nav,
         errors: null,
@@ -365,7 +365,7 @@ async function adminDeleteUserAccount(req, res) {
         req.flash("notice-bad",
             "There was an error deleting the account. Please try again and check the format."
         )
-        return res.status(501).render("account/admin-delete-user", {
+        return res.status(501).render("account/admin/admin-delete-user", {
             title: "Admin Delete User",
             nav,
             errors: null,
